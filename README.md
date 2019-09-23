@@ -16,4 +16,3 @@ This definitively means that no email address may contain any `CR` or `LF`, as t
 Where any whitespace can occur in a quote, they are folded to a single whitespace,
 this means that an email address of `"  a"@example.com` can be definitely excluded,
 because it would be unaddressable as it would fold to `" a"@example.com`.
-(Note, this package currently does not allow unescaped whitespace in any location, this will be resolved.)

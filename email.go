@@ -5,15 +5,17 @@ import (
 )
 
 const (
-	emailQtext         = `[^\t\n\r "\\]+`
-	emailQuotedPair    = `\\[^\n\r]`
-	emailQuotedString  = `"(?:` + emailQtext + `|` + emailQuotedPair + `)*"`
+	emailFWS           = `[ ]?`
+	emailQtext         = emailFWS + `[^\t\n\r "\\` + utf8ExcludeInvalid + `]+`
+	emailQuotedPair    = emailFWS + `\\[^\n\r` + utf8ExcludeInvalid + `]`
+	emailQcontent      = `(?:` + emailQtext + `|` + emailQuotedPair + `)`
+	emailQuotedString  = `"` + emailQcontent + `*` + emailFWS + `"`
 	emailAtext         = `[!#\$%&'\*\+\-/0-9=\?A-Z\^_\x60a-z{|}~` + utf8NonASCII + `]+`
 	emailDotAtom       = `(?:` + emailAtext + `(?:\.` + emailAtext + `)*)`
 	emailLocalPart     = `(?:` + emailDotAtom + `|` + emailQuotedString + `)`
-	emailDtext         = `[^\t\n\r \[\\\]]+`
+	emailDtext         = emailFWS + `[^\t\n\r \[\\\]]+`
 	emailDcontent      = `(?:` + emailDtext + `|` + emailQuotedPair + `)`
-	emailDomainLiteral = `\[` + emailDcontent + `*\]`
+	emailDomainLiteral = `\[` + emailDcontent + `*` + emailFWS + `\]`
 	emailDomain        = `(?:` + hostnameString + `|` + emailDomainLiteral + `)`
 )
 

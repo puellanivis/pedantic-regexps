@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-var _ = regexp.Compile
+const emailRegexString = `^` + emailString + `$`
 
 func TestEmail(t *testing.T) {
-	r, err := syntax.Parse(emailString, syntax.Perl)
+	r, err := syntax.Parse(emailRegexString, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
@@ -180,6 +180,8 @@ func TestEmail(t *testing.T) {
 		{"user@[example.org(comment)]", true},    // Not a comment, but part of the domain-literal
 		{"user@[example.org](comment)", false},   // CANONICALLY: user@[example.org]
 	}
+
+	Email := regexp.MustCompile(emailRegexString)
 
 	for _, tt := range tests {
 		got := Email.MatchString(tt.s)

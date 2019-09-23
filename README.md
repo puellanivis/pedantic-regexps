@@ -14,5 +14,5 @@ some validation libraries have interpreted this to mean that these whitespace ar
 However, definitively, any `CRLF` appearing in Folding-White-Space is semantically “invisible” and therefore not part of the quoted-string.
 This definitively means that no email address may contain any `CR` or `LF`, as the `quote-pair` also does not allow `CR` or `LF` to be escaped.
 Where any whitespace can occur in a quote, they are folded to a single whitespace,
-this means that an email address of `"  a"@example.com` can be definitely excluded,
-because it would be unaddressable as it would fold to `" a"@example.com`.
+this means that an email address of `"␣␣a"@example.com` can be definitely excluded,
+because it would be unaddressable as it would fold to `"␣a"@example.com`.

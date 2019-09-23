@@ -9,7 +9,7 @@ With test results in hand, you can then evaluate if the failing test cases fall 
 ## E-Mail Addresses
 
 Some particular points of interest here.
-[https://tools.ietf.org/html/rfc2822](RFC-2822) covering email addresses notes that some whitespace can occur in some quoted elements,
+[RFC-2822](https://tools.ietf.org/html/rfc2822) covering email addresses notes that some whitespace can occur in some quoted elements,
 some validation libraries have interpreted this to mean that these whitespace are to be considered part of the email address.
 However, definitively, any `CRLF` appearing in Folding-White-Space is semantically “invisible” and therefore not part of the quoted-string.
 This definitively means that no email address may contain any `CR` or `LF`, as the `quote-pair` also does not allow `CR` or `LF` to be escaped.

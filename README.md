@@ -23,3 +23,10 @@ Hostname specifications say that each label should be no longer than 63 characte
 and that the whole hostname should be no longer than 255.
 This is not something that can easily be checked with regexps,
 and is not strictly enforced.
+
+## Notes / Definitions
+
+Unless otherwise noted,
+where `␣` appears,
+it is intended to represent the whitespace character at `U+0020` (SPACE).
+It appears as this replacement character where folding-whitespace in Markdown would remove one or more space characters.

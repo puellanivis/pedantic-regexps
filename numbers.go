@@ -3,8 +3,8 @@ package pedantic
 const (
 	digitBin = `[01]`
 	digitOct = `[0-7]`
-	digitDec = asciiNumeric
-	digitHex = `[` + digitDec + `A-Fa-f]`
+	digitDec = `[` + asciiNumeric + `]`
+	digitHex = `[` + asciiNumeric + `A-Fa-f]`
 
 	numberByteBin = `(?:0|1[01]{0,7})`
 	numberByteOct = `(?:0|[1-3](?:[0-7][0-7]?)?|[4-7][0-7]?)`
@@ -15,4 +15,8 @@ const (
 	numberByteOctFull = `(?:[0-3][0-7][0-7])`
 	numberByteDecFull = `(?:[01][0-9][0-9]|2[0-4][0-9]|25[0-5])`
 	numberByteHexFull = `(?:` + digitHex + digitHex + `)`
+
+	numberUint16Hex     = `(?:0|[1-9A-Fa-f](?:` + digitHex + `(?:` + digitHex + digitHex + `?)?)?)`
+	numberUint16HexFull = `(?:` + digitHex + digitHex + digitHex + digitHex + `)`
+	numberUint16HexAmbi = `(?:0(?:` + digitHex + digitHex + digitHex + `)?|[1-9A-Fa-f](?:` + digitHex + `(?:` + digitHex + digitHex + `?)?)?)`
 )

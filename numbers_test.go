@@ -21,6 +21,12 @@ const (
 	numberByteHexFullRegexString = `^` + numberByteHexFull + `$`
 )
 
+const (
+	numberUint16HexRegexString     = `^` + numberUint16Hex + `$`
+	numberUint16HexFullRegexString = `^` + numberUint16HexFull + `$`
+	numberUint16HexAmbiRegexString = `^` + numberUint16HexAmbi + `$`
+)
+
 func TestByteBin(t *testing.T) {
 	input := numberByteBinRegexString
 
@@ -392,6 +398,160 @@ func TestByteHexFull(t *testing.T) {
 	for i := 0; i < 0x10; i++ {
 		tests = append(tests, test{fmt.Sprintf("%x", i), false})
 		tests = append(tests, test{fmt.Sprintf("%X", i), false})
+	}
+	tests = append(tests, test{"-1", false})
+	tests = append(tests, test{"alpha", false})
+
+	re := regexp.MustCompile(input)
+
+	for _, tt := range tests {
+		got := re.MatchString(tt.s)
+		if got != tt.match {
+			switch tt.match {
+			case true:
+				t.Errorf("expected %q to match, but it did not", tt.s)
+			case false:
+				t.Errorf("expected %q to not match, but it did", tt.s)
+			}
+		}
+	}
+}
+
+func TestUint16Hex(t *testing.T) {
+	input := numberUint16HexRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
+	if err != nil {
+		t.Fatal("unexpected error ", err)
+	}
+
+	t.Log("input:", input)
+	t.Log("simplify:", r.Simplify())
+
+	type test struct {
+		s     string
+		match bool
+	}
+
+	var tests []test
+	for i := 0; i < 65536; i++ {
+		tests = append(tests, test{fmt.Sprintf("%x", i), true})
+		tests = append(tests, test{fmt.Sprintf("%X", i), true})
+	}
+	tests = append(tests, test{"10000", false})
+	for i := 0; i < 0x1000; i++ {
+		tests = append(tests, test{fmt.Sprintf("0%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("0%X", i), false})
+	}
+	for i := 0; i < 0x100; i++ {
+		tests = append(tests, test{fmt.Sprintf("00%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("00%X", i), false})
+	}
+	for i := 0; i < 0x10; i++ {
+		tests = append(tests, test{fmt.Sprintf("000%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("000%X", i), false})
+	}
+	tests = append(tests, test{"-1", false})
+	tests = append(tests, test{"alpha", false})
+
+	re := regexp.MustCompile(input)
+
+	for _, tt := range tests {
+		got := re.MatchString(tt.s)
+		if got != tt.match {
+			switch tt.match {
+			case true:
+				t.Errorf("expected %q to match, but it did not", tt.s)
+			case false:
+				t.Errorf("expected %q to not match, but it did", tt.s)
+			}
+		}
+	}
+}
+
+func TestUint16HexFull(t *testing.T) {
+	input := numberUint16HexFullRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
+	if err != nil {
+		t.Fatal("unexpected error ", err)
+	}
+
+	t.Log("input:", input)
+	t.Log("simplify:", r.Simplify())
+
+	type test struct {
+		s     string
+		match bool
+	}
+
+	var tests []test
+	for i := 0; i < 65536; i++ {
+		tests = append(tests, test{fmt.Sprintf("%04x", i), true})
+		tests = append(tests, test{fmt.Sprintf("%04X", i), true})
+	}
+	tests = append(tests, test{"10000", false})
+	for i := 0; i < 0x1000; i++ {
+		tests = append(tests, test{fmt.Sprintf("%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("%X", i), false})
+	}
+	for i := 0; i < 0x100; i++ {
+		tests = append(tests, test{fmt.Sprintf("0%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("0%X", i), false})
+	}
+	for i := 0; i < 0x10; i++ {
+		tests = append(tests, test{fmt.Sprintf("00%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("00%X", i), false})
+	}
+	tests = append(tests, test{"-1", false})
+	tests = append(tests, test{"alpha", false})
+
+	re := regexp.MustCompile(input)
+
+	for _, tt := range tests {
+		got := re.MatchString(tt.s)
+		if got != tt.match {
+			switch tt.match {
+			case true:
+				t.Errorf("expected %q to match, but it did not", tt.s)
+			case false:
+				t.Errorf("expected %q to not match, but it did", tt.s)
+			}
+		}
+	}
+}
+
+func TestUint16HexAmbi(t *testing.T) {
+	input := numberUint16HexAmbiRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
+	if err != nil {
+		t.Fatal("unexpected error ", err)
+	}
+
+	t.Log("input:", input)
+	t.Log("simplify:", r.Simplify())
+
+	type test struct {
+		s     string
+		match bool
+	}
+
+	var tests []test
+	for i := 0; i < 65536; i++ {
+		tests = append(tests, test{fmt.Sprintf("%x", i), true})
+		tests = append(tests, test{fmt.Sprintf("%X", i), true})
+		tests = append(tests, test{fmt.Sprintf("%04x", i), true})
+		tests = append(tests, test{fmt.Sprintf("%04X", i), true})
+	}
+	tests = append(tests, test{"10000", false})
+	for i := 0; i < 0x100; i++ {
+		tests = append(tests, test{fmt.Sprintf("0%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("0%X", i), false})
+	}
+	for i := 0; i < 0x10; i++ {
+		tests = append(tests, test{fmt.Sprintf("00%x", i), false})
+		tests = append(tests, test{fmt.Sprintf("00%X", i), false})
 	}
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})

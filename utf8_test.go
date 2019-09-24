@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestUnicode(t *testing.T) {
+func TestUTF8(t *testing.T) {
 	utf8NonASCIIString := `^[` + utf8NonASCII + `]$`
 
 	r, err := syntax.Parse(utf8NonASCIIString, syntax.Perl)

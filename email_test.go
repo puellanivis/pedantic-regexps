@@ -9,12 +9,14 @@ import (
 const emailRegexString = `^` + emailString + `$`
 
 func TestEmail(t *testing.T) {
-	r, err := syntax.Parse(emailRegexString, syntax.Perl)
+	input := emailRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", emailRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -182,10 +184,10 @@ func TestEmail(t *testing.T) {
 		{"user@[example.org](comment)", false},   // CANONICALLY: user@[example.org]
 	}
 
-	Email := regexp.MustCompile(emailRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := Email.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:

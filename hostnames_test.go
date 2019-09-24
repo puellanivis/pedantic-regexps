@@ -10,12 +10,14 @@ import (
 const hostnameRegexString = `^` + hostnameString + `$`
 
 func TestHostname(t *testing.T) {
-	r, err := syntax.Parse(hostnameRegexString, syntax.Perl)
+	input := hostnameRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", hostnameRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -49,10 +51,10 @@ func TestHostname(t *testing.T) {
 		{"\ufffd.example", false}, // ensure replacement character is not matched
 	}...)
 
-	Hostname := regexp.MustCompile(hostnameRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := Hostname.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:

@@ -22,12 +22,14 @@ const (
 )
 
 func TestByteBin(t *testing.T) {
-	r, err := syntax.Parse(numberByteBinRegexString, syntax.Perl)
+	input := numberByteBinRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", numberByteBinRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -65,10 +67,10 @@ func TestByteBin(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteBin := regexp.MustCompile(numberByteBinRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteBin.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:
@@ -81,12 +83,14 @@ func TestByteBin(t *testing.T) {
 }
 
 func TestByteOct(t *testing.T) {
-	r, err := syntax.Parse(numberByteOctRegexString, syntax.Perl)
+	input := numberByteOctRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", numberByteOctRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -108,10 +112,10 @@ func TestByteOct(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteOct := regexp.MustCompile(numberByteOctRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteOct.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:
@@ -124,12 +128,14 @@ func TestByteOct(t *testing.T) {
 }
 
 func TestByteDec(t *testing.T) {
-	r, err := syntax.Parse(numberByteDecRegexString, syntax.Perl)
+	input := numberByteDecRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", numberByteDecRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -151,10 +157,10 @@ func TestByteDec(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteDec := regexp.MustCompile(numberByteDecRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteDec.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:
@@ -167,12 +173,14 @@ func TestByteDec(t *testing.T) {
 }
 
 func TestByteHex(t *testing.T) {
-	r, err := syntax.Parse(numberByteHexRegexString, syntax.Perl)
+	input := numberByteHexRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", numberByteHexRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -193,10 +201,10 @@ func TestByteHex(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteHex := regexp.MustCompile(numberByteHexRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteHex.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:
@@ -209,12 +217,14 @@ func TestByteHex(t *testing.T) {
 }
 
 func TestByteBinFull(t *testing.T) {
-	r, err := syntax.Parse(numberByteBinFullRegexString, syntax.Perl)
+	input := numberByteBinFullRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", numberByteBinFullRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -252,10 +262,10 @@ func TestByteBinFull(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteBinFull := regexp.MustCompile(numberByteBinFullRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteBinFull.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:
@@ -268,12 +278,14 @@ func TestByteBinFull(t *testing.T) {
 }
 
 func TestByteOctFull(t *testing.T) {
-	r, err := syntax.Parse(numberByteOctFullRegexString, syntax.Perl)
+	input := numberByteOctFullRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", numberByteOctFullRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -295,10 +307,10 @@ func TestByteOctFull(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteOctFull := regexp.MustCompile(numberByteOctFullRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteOctFull.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:
@@ -311,7 +323,9 @@ func TestByteOctFull(t *testing.T) {
 }
 
 func TestByteDecFull(t *testing.T) {
-	r, err := syntax.Parse(numberByteDecFullRegexString, syntax.Perl)
+	input := numberByteDecFullRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
@@ -338,10 +352,10 @@ func TestByteDecFull(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteDecFull := regexp.MustCompile(numberByteDecFullRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteDecFull.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:
@@ -354,12 +368,14 @@ func TestByteDecFull(t *testing.T) {
 }
 
 func TestByteHexFull(t *testing.T) {
-	r, err := syntax.Parse(numberByteHexFullRegexString, syntax.Perl)
+	input := numberByteHexFullRegexString
+
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", numberByteHexFullRegexString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -380,10 +396,10 @@ func TestByteHexFull(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	NumberByteHexFull := regexp.MustCompile(numberByteHexFullRegexString)
+	re := regexp.MustCompile(input)
 
 	for _, tt := range tests {
-		got := NumberByteHexFull.MatchString(tt.s)
+		got := re.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:

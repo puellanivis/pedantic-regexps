@@ -8,14 +8,14 @@ import (
 )
 
 func TestUnicode(t *testing.T) {
-	unicodeNonASCIIString := `^[` + unicodeNonASCII + `]$`
+	input := `^[` + unicodeNonASCII + `]$`
 
-	r, err := syntax.Parse(unicodeNonASCIIString, syntax.Perl)
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", unicodeNonASCIIString)
+	t.Log("input:", input)
 	t.Log("simplify:", r.Simplify())
 
 	type test struct {
@@ -129,7 +129,7 @@ func TestUnicode(t *testing.T) {
 		{[]rune{0x110000}, false}, // 0x110000
 	}
 
-	unicodeNonASCIIRegex := regexp.MustCompile(unicodeNonASCIIString)
+	re := regexp.MustCompile(input)
 	for _, tt := range tests {
 		s := string(tt.r)
 
@@ -142,7 +142,7 @@ func TestUnicode(t *testing.T) {
 			s = string(utf16.DecodeRune(tt.r[0], tt.r[1]))
 		}
 
-		got := unicodeNonASCIIRegex.MatchString(s)
+		got := re.MatchString(s)
 		if got != tt.match {
 			switch tt.match {
 			case true:

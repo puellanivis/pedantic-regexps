@@ -7,14 +7,14 @@ import (
 )
 
 func TestUTF8(t *testing.T) {
-	utf8NonASCIIString := `^[` + utf8NonASCII + `]$`
+	input := `^[` + utf8NonASCII + `]$`
 
-	r, err := syntax.Parse(utf8NonASCIIString, syntax.Perl)
+	r, err := syntax.Parse(input, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log("input:", utf8NonASCIIString)
+	t.Log("input:", input)
 	t.Log("simplify", r.Simplify())
 
 	type test struct {
@@ -61,9 +61,9 @@ func TestUTF8(t *testing.T) {
 		{[]byte{0xf4, 0x90, 0x80, 0x80}, false}, // 0x110000
 	}
 
-	utf8NonASCIIRegex := regexp.MustCompile(utf8NonASCIIString)
+	re := regexp.MustCompile(input)
 	for _, tt := range tests {
-		got := utf8NonASCIIRegex.Match(tt.b)
+		got := re.Match(tt.b)
 		if got != tt.match {
 			switch tt.match {
 			case true:

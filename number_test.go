@@ -7,10 +7,10 @@ import (
 	"testing"
 )
 
-const ipv4NumberRegexString = `^` + ipv4Number + `$`
+const numberByteDecRegexString = `^` + numberByteDec + `$`
 
-func TestIPv4(t *testing.T) {
-	r, err := syntax.Parse(ipv4NumberRegexString, syntax.Perl)
+func TestByteDec(t *testing.T) {
+	r, err := syntax.Parse(numberByteDecRegexString, syntax.Perl)
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
@@ -35,10 +35,10 @@ func TestIPv4(t *testing.T) {
 	tests = append(tests, test{"-1", false})
 	tests = append(tests, test{"alpha", false})
 
-	IPv4 := regexp.MustCompile(ipv4NumberRegexString)
+	NumberByteDec := regexp.MustCompile(numberByteDecRegexString)
 
 	for _, tt := range tests {
-		got := IPv4.MatchString(tt.s)
+		got := NumberByteDec.MatchString(tt.s)
 		if got != tt.match {
 			switch tt.match {
 			case true:

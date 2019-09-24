@@ -16,3 +16,10 @@ This definitively means that no email address may contain any `CR` or `LF`, as t
 Where any whitespace can occur in a quote, they are folded to a single whitespace,
 this means that an email address of `"␣␣a"@example.com` can be definitely excluded,
 because it would be unaddressable as it would fold to `"␣a"@example.com`.
+
+## Hostnames
+
+Hostname specifications say that each label should be no longer than 63 characters,
+and that the whole hostname should be no longer than 255.
+This is not something that can easily be checked with regexps,
+and is not strictly enforced.

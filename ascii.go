@@ -7,6 +7,7 @@ const (
 	asciiUpper               = `A-Z`
 	asciiLower               = `a-z`
 	asciiAlpha               = asciiUpper + asciiLower
-	asciiNumeric             = "0-9"
+	asciiNumeric             = `0-9`
 	asciiAlphaNumeric        = asciiAlpha + asciiNumeric
+	asciiPrintable           = `[\x20-\x7e]`
 )

@@ -15,7 +15,7 @@ However, definitively, any `CRLF` appearing in Folding-White-Space is semantical
 This definitively means that no email address may contain any `CR` or `LF`, as the `quote-pair` also does not allow `CR` or `LF` to be escaped.
 Where any whitespace can occur in a quote, they are folded to a single whitespace,
 this means that an email address of `"␣␣a"@example.com` can be definitely excluded,
-because it would be unaddressable as it would fold to `"␣a"@example.com`.
+because it would be unaddressable as it would fold to `"␣a"@example.com`. (Canonically, such a mailbox would have to be addressed with `"␣\␣a"@example.com` to prevent whitespace folding.)
 
 ## Hostnames
 

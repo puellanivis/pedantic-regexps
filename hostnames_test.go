@@ -14,7 +14,9 @@ func TestHostname(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", hostnameRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string

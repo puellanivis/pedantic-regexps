@@ -26,7 +26,9 @@ func TestByteBin(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteBinRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string
@@ -83,7 +85,9 @@ func TestByteOct(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteOctRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string
@@ -124,7 +128,9 @@ func TestByteDec(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteDecRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string
@@ -165,7 +171,9 @@ func TestByteHex(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteHexRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string
@@ -205,7 +213,9 @@ func TestByteBinFull(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteBinFullRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string
@@ -262,7 +272,9 @@ func TestByteOctFull(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteOctFullRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string
@@ -303,7 +315,9 @@ func TestByteDecFull(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteDecRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string
@@ -344,7 +358,9 @@ func TestByteHexFull(t *testing.T) {
 	if err != nil {
 		t.Fatal("unexpected error ", err)
 	}
-	t.Log(r.Simplify())
+
+	t.Log("input:", numberByteHexFullRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string

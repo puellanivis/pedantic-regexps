@@ -14,7 +14,8 @@ func TestUTF8(t *testing.T) {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log(r.Simplify())
+	t.Log("input:", utf8NonASCIIString)
+	t.Log("simplify", r.Simplify())
 
 	type test struct {
 		b     []byte

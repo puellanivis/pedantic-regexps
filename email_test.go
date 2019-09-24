@@ -14,7 +14,8 @@ func TestEmail(t *testing.T) {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log(r.Simplify())
+	t.Log("input:", emailRegexString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		s     string

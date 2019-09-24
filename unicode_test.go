@@ -15,7 +15,8 @@ func TestUnicode(t *testing.T) {
 		t.Fatal("unexpected error ", err)
 	}
 
-	t.Log(r.Simplify())
+	t.Log("input:", unicodeNonASCIIString)
+	t.Log("simplify:", r.Simplify())
 
 	type test struct {
 		r     []rune

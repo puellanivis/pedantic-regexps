@@ -1,4 +1,4 @@
-# pedantic
+# pedantic-regexps
 
 The regexps exported by this package are overly strictly correct, and you should not use them.
 They are provided essentially to give a baseline for the tests to validate against.

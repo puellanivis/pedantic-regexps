@@ -6,7 +6,7 @@ import (
 
 const (
 	hostnameLetter = `[0-9A-Za-z` + utf8NonASCII + `]+`
-	hostnameLabel  = hostnameLetter + `(?:-` + hostnameLetter + `)*`
+	hostnameLabel  = hostnameLetter + `(?:-+` + hostnameLetter + `)*`
 	hostnameString = hostnameLabel + `(?:\.` + hostnameLabel + `)*`
 )
 

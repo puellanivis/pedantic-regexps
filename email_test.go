@@ -182,6 +182,15 @@ func TestEmail(t *testing.T) {
 		{"user@[(comment)example.org]", true},    // Not a comment, but part of the domain-literal
 		{"user@[example.org(comment)]", true},    // Not a comment, but part of the domain-literal
 		{"user@[example.org](comment)", false},   // CANONICALLY: user@[example.org]
+
+		// From: https://youtube.com/watch?v=mrGfahzt-4Q
+		// Email vs Capitalism, or, Why We Can't Have Nice Things - Dylan Beattie - NDC Oslo 2023
+		{"iron.man@avengers.com", true},
+		{"spider-man@avengers.com", true},
+		{"t'chala@avengers.com", true},
+		{"rocket+groot@avengers.com", true},
+		{`"Bruce 'The Hulk' Banner"@avengers.com`, true},
+		{"vision@[IPV6:2001:db8:1ff::a0b:dbd0]", true},
 	}
 
 	re := regexp.MustCompile(input)

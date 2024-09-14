@@ -86,30 +86,30 @@ func TestEmail(t *testing.T) {
 		{`user@[]`, true},
 		{`user@[`, false},
 		{`user@]`, false},
-		{`user@[\[]`, true},
+		{`user@[\[]`, true}, // This is obsolete in 5322. No escape in a domain-literal.
 		{`user@\[]`, false},
 		{`user@[\[`, false},
-		{`user@[\]]`, true},
+		{`user@[\]]`, true}, // This is obsolete in 5322. No escape in a domain-literal.
 		{`user@\]]`, false},
 		{`user@[\]`, false},
-		{`user@[\\]`, true},
+		{`user@[\\]`, true}, // This is obsolete in 5322. No escape in a domain-literal.
 		{`user@\\]`, false},
 		{`user@[\\`, false},
-		{`user@[example.org]`, true},
+		{`user@[example.org]`, true}, // This is obsolete in 5322. Must be `ipv4-addr`, or `IPv6:<ipv6-addr>`.
 
-		// Test properly escaped whitespace in quotes.
-		{`"\ "@example.org`, true},     // This whitespace is properly escaped.
-		{`\ "@example.org`, false},     // This whitespace is properly escaped, but no start quote.
-		{`"\ @example.org`, false},     // This whitespace is properly escaped, but no end quote.
-		{"\"\\\t\"@example.org", true}, // This whitespace is properly escaped. Yes, this is how it is encoded.
-		{"\\\t\"@example.org", false},  // This whitespace is properly escaped, but no start quote.
-		{"\"\\\t@example.org", false},  // This whitespace is properly escaped, but no end quote.
-		{`user@[\ ]`, true},            // This whitespace is properly escaped.
-		{`user@\ ]`, false},            // This whitespace is properly escaped, but no start bracket.
-		{`user@[\ `, false},            // This whitespace is properly escaped, but no end bracket.
-		{"user@[\\\t]", true},          // This whitespace is properly escaped. Yes, this is how it is encoded.
-		{"user@\\\t]", false},          // This whitespace is properly escaped, but no start bracket.
-		{"user@[\\\t", false},          // This whitespace is properly escaped, but no end bracket.
+		// Test escaping whitespace in literals.
+		{`"\ "@example.org`, true},     // This WSP is properly escaped.
+		{`\ "@example.org`, false},     // This WSP is properly escaped, but no start quote.
+		{`"\ @example.org`, false},     // This WSP is properly escaped, but no end quote.
+		{"\"\\\t\"@example.org", true}, // This WSP is properly escaped. Yes, this is how it is encoded.
+		{"\\\t\"@example.org", false},  // This WSP is properly escaped, but no start quote.
+		{"\"\\\t@example.org", false},  // This WSP is properly escaped, but no end quote.
+		{`user@[\ ]`, true},            // This WSP is properly escaped. This is obsolete in 5322.
+		{`user@\ ]`, false},            // This WSP is properly escaped, but no start bracket.
+		{`user@[\ `, false},            // This WSP is properly escaped, but no end bracket.
+		{"user@[\\\t]", true},          // This WSP is properly escaped. Yes, this is how it is encoded. This is obsolete in 5322.
+		{"user@\\\t]", false},          // This WSP is properly escaped, but no start bracket.
+		{"user@[\\\t", false},          // This WSP is properly escaped, but no end bracket.
 
 		// Test CR and LF not allowed:
 		{"\"\n\"@example.org", false},
@@ -139,14 +139,14 @@ func TestEmail(t *testing.T) {
 		{"\" user\"@example.org", true},
 		{"\"user \"@example.org", true},
 		{"\" user \"@example.org", true},
-		{"\"\tuser\"@example.org", false}, // CANONICALLY: " user"@example.org
-		{"\"user\t\"@example.org", false}, // CANONICALLY: "user "@example.org
-		{"\"  user\"@example.org", false}, // CANONICALLY: " user"@example.org
-		{"\"user  \"@example.org", false}, // CANONICALLY: "user "@example.org
-		{"\"user\" @example.org", false},  // CANONICALLY: "user"@example.org
-		{"user@ [example.org]", false},    // CANONICALLY: user@[example.org]
-		{"user@[ example.org]", true},
-		{"user@[example.org ]", true},
+		{"\"\tuser\"@example.org", false},     // CANONICALLY: " user"@example.org
+		{"\"user\t\"@example.org", false},     // CANONICALLY: "user "@example.org
+		{"\"  user\"@example.org", false},     // CANONICALLY: " user"@example.org
+		{"\"user  \"@example.org", false},     // CANONICALLY: "user "@example.org
+		{"\"user\" @example.org", false},      // CANONICALLY: "user"@example.org
+		{"user@ [example.org]", false},        // CANONICALLY: user@[example.org]
+		{"user@[ example.org]", true},         // Obsolete in 5322. Must be <ipv4-addr> or `IPv6:<ipv6-addr>`.
+		{"user@[example.org ]", true},         // Obsolete in 5322. Must be <ipv4-addr> or `IPv6:<ipv6-addr>`.
 		{"user@[\texample.org]", false},       // CANONICALLY: user@[ example.org]
 		{"user@[example.org\t]", false},       // CANONICALLY: user@[example.org ]
 		{"user@[  example.org]", false},       // CANONICALLY: user@[ example.org]
@@ -166,8 +166,8 @@ func TestEmail(t *testing.T) {
 		{"user@[example.org \r\n ]", false},   // CANONICALLY: user@[example.org ]
 		{"user@[example.org]\r\n ", false},    // CANONICALLY: user@[example.org]
 		{"user@[example.org] \r\n ", false},   // CANONICALLY: user@[example.org]
-		{"user@[ \\  ]", true},                // domain-literal is: "   "
-		{"user@[ \\\t ]", true},               // domain-literal is: " \t "
+		{"user@[ \\  ]", true},                // domain-literal is: "   ". Obsolete in 5322.
+		{"user@[ \\\t ]", true},               // domain-literal is: " \t ". Obsolete in 5322.
 
 		// Test Comment handling (it is invisible, and not part of the address):
 		{"(comment)user@example.org", false},     // CANONICALLY: user@example.org
@@ -175,12 +175,12 @@ func TestEmail(t *testing.T) {
 		{"user@(comment)example.org", false},     // CANONICALLY: user@example.org
 		{"user@example.org(comment)", false},     // CANONICALLY: user@example.org
 		{"(comment)\"user\"@example.org", false}, // CANONICALLY: "user"@example.org
-		{"\"(comment)user\"@example.org", true},  // Not a comment, but part of the local-part
-		{"\"user(comment)\"@example.org", true},  // Not a comment, but part of the local-part
+		{"\"(comment)user\"@example.org", true},  // Not a comment, but part of the local-part. Obsolete in 5322.
+		{"\"user(comment)\"@example.org", true},  // Not a comment, but part of the local-part. Obsolete in 5322.
 		{"\"user\"(comment)@example.org", false}, // CANONICALLY: "user"@example.org
 		{"user@(comment)[example.org]", false},   // CANONICALLY: user@[example.org]
-		{"user@[(comment)example.org]", true},    // Not a comment, but part of the domain-literal
-		{"user@[example.org(comment)]", true},    // Not a comment, but part of the domain-literal
+		{"user@[(comment)example.org]", true},    // Not a comment, but part of the domain-literal. Obsolete in 5322.
+		{"user@[example.org(comment)]", true},    // Not a comment, but part of the domain-literal. Obsolete in 5322.
 		{"user@[example.org](comment)", false},   // CANONICALLY: user@[example.org]
 
 		// From: https://youtube.com/watch?v=mrGfahzt-4Q

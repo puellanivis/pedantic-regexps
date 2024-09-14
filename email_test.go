@@ -187,10 +187,10 @@ func TestEmail(t *testing.T) {
 		// Email vs Capitalism, or, Why We Can't Have Nice Things - Dylan Beattie - NDC Oslo 2023
 		{"iron.man@avengers.com", true},
 		{"spider-man@avengers.com", true},
-		{"t'chala@avengers.com", true},
+		{"t'challa@avengers.com", true},
 		{"rocket+groot@avengers.com", true},
 		{`"Bruce 'The Hulk' Banner"@avengers.com`, true},
-		{"vision@[IPV6:2001:db8:1ff::a0b:dbd0]", true},
+		{"vision@[IPv6:2001:db8:1ff::a0b:dbd0]", true},
 	}
 
 	re := regexp.MustCompile(input)

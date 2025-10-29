@@ -34,6 +34,7 @@ func TestEmail(t *testing.T) {
 		{"user.name@example.org", true},
 		{".user@example.org", false},
 		{"user.@example.org", false},
+		{"user@example.org.", false},
 
 		// Various special characters
 		{" @example.org", false},
@@ -61,6 +62,7 @@ func TestEmail(t *testing.T) {
 		{"@@example.org", false},
 		{"[@example.org", false},
 		{"\\@example.org", false},
+		{`"@"@example.org`, true},
 		{"]@example.org", false},
 		{"^@example.org", true},
 		{"_@example.org", true},
